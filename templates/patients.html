@@ -1,0 +1,5 @@
+{% extends "base.html" %}{% set title="Patients" %}{% block content %}
+<div class="card p-4"><div class="d-flex justify-content-between align-items-center"><h5 class="fw-bold">Patient Directory</h5><a class="btn btn-primary" href="/patients/add">+ Add Patient</a></div>
+<div class="table-responsive mt-3"><table class="table"><thead><tr><th>ID</th><th>Name</th><th>Age</th><th>Gender</th><th>Phone</th><th>Blood Group</th></tr></thead><tbody>
+{% for p in patients %}<tr><td>#{{p.id}}</td><td class="fw-semibold">{{p.name}}</td><td>{{p.age or '-'}}</td><td>{{p.gender or '-'}}</td><td>{{p.phone or '-'}}</td><td>{{p.blood_group or '-'}}</td></tr>{% else %}<tr><td colspan="6" class="text-center text-muted">No patients registered.</td></tr>{% endfor %}
+</tbody></table></div></div>{% endblock %}

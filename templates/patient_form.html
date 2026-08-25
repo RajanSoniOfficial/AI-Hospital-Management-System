@@ -1,0 +1,9 @@
+{% extends "base.html" %}{% set title="Register Patient" %}{% block content %}
+<div class="card p-4"><form method="post"><div class="row g-3">
+<div class="col-md-6"><label class="form-label">Full Name</label><input class="form-control" name="name" required></div>
+<div class="col-md-3"><label class="form-label">Age</label><input class="form-control" type="number" name="age"></div>
+<div class="col-md-3"><label class="form-label">Gender</label><select class="form-select" name="gender"><option>Male</option><option>Female</option><option>Other</option></select></div>
+<div class="col-md-6"><label class="form-label">Phone</label><input class="form-control" name="phone"></div>
+<div class="col-md-6"><label class="form-label">Blood Group</label><select class="form-select" name="blood_group"><option>Unknown</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>AB+</option><option>AB-</option><option>O+</option><option>O-</option></select></div>
+<div class="col-12"><label class="form-label">Address</label><textarea class="form-control" name="address"></textarea></div>
+</div><button class="btn btn-primary mt-4">Register Patient</button></form></div>{% endblock %}

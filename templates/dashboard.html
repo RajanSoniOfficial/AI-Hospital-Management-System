@@ -1,0 +1,10 @@
+{% extends "base.html" %}{% set title="Admin Dashboard" %}{% block content %}
+<div class="row g-4 mb-4">
+{% for icon,label,value in [('👥','Total Patients',stats.patients),('👨‍⚕️','Total Doctors',stats.doctors),('📅','Appointments',stats.appointments),('💰','Revenue','₹%.0f'|format(stats.revenue))] %}
+<div class="col-md-6 col-xl-3"><div class="card p-4"><div class="muted">{{icon}} {{label}}</div><div class="stat mt-2">{{value}}</div><div class="small text-success mt-2">● System data</div></div></div>
+{% endfor %}</div>
+<div class="row g-4"><div class="col-lg-7"><div class="card p-4"><h5 class="fw-bold">Hospital Overview</h5><canvas id="chart" height="130"></canvas></div></div>
+<div class="col-lg-5"><div class="card p-4"><h5 class="fw-bold">Quick Actions</h5><div class="d-grid gap-2 mt-3"><a class="btn btn-primary" href="/patients/add">+ Register Patient</a><a class="btn btn-outline-primary" href="/appointments">+ Book Appointment</a><a class="btn btn-outline-primary" href="/billing">+ Create Bill</a><a class="btn btn-outline-dark" href="/ai">🤖 Open AI Center</a></div></div></div></div>
+<div class="card p-4 mt-4"><h5 class="fw-bold">Recent Appointments</h5><div class="table-responsive"><table class="table mt-3"><thead><tr><th>Patient</th><th>Doctor</th><th>Date</th><th>Status</th></tr></thead><tbody>{% for a in recent %}<tr><td>{{a.patient_name or '-'}}</td><td>{{a.doctor_name or '-'}}</td><td>{{a.appointment_date}}</td><td><span class="badge text-bg-primary">{{a.status}}</span></td></tr>{% else %}<tr><td colspan="4" class="text-center text-muted">No appointments yet.</td></tr>{% endfor %}</tbody></table></div></div>
+<script>new Chart(document.getElementById('chart'),{type:'bar',data:{labels:['Patients','Doctors','Appointments'],datasets:[{label:'Count',data:[{{stats.patients}},{{stats.doctors}},{{stats.appointments}}]}]},options:{responsive:true,plugins:{legend:{display:false}}}});</script>
+{% endblock %}

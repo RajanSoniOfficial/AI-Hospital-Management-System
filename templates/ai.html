@@ -1,0 +1,15 @@
+{% extends "base.html" %}{% set title="AI Center" %}{% block content %}
+<div class="row g-4"><div class="col-lg-5"><div class="card p-4"><h5 class="fw-bold">🤖 AI Patient Summary</h5><p class="muted">Generate a concise summary from the hospital records stored in this demo database.</p>
+<select id="patient" class="form-select mb-3"><option value="">Select patient</option>{% for p in patients %}<option value="{{p.id}}">{{p.name}} — {{p.age or 'Age N/A'}}</option>{% endfor %}</select>
+<button class="btn btn-primary w-100" onclick="generateSummary()">Generate Summary</button>
+<div class="alert alert-warning mt-3 small">AI output is for record summarization only and is not a diagnosis or medical advice.</div></div></div>
+<div class="col-lg-7"><div class="card p-4"><h5 class="fw-bold">AI Output</h5><pre id="output" style="white-space:pre-wrap;font-family:inherit;color:#334155">Select a patient and generate a summary.</pre></div></div></div>
+<script>
+async function generateSummary(){
+ const id=document.getElementById('patient').value;
+ if(!id){alert('Please select a patient');return}
+ document.getElementById('output').textContent='Generating summary...';
+ const r=await fetch('/ai/summary',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({patient_id:id})});
+ const d=await r.json(); document.getElementById('output').textContent=d.summary||d.error||'Unable to generate summary';
+}
+</script>{% endblock %}
